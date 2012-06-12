@@ -1,0 +1,34 @@
+<!--/* *-->
+<!--*功能：支付宝即时到帐最终产生的测试结果页面-->
+<!--*版本：3.2-->
+<!--*日期：2011-03-17-->
+<!--*说明：-->
+<!--*以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。-->
+<!--*/-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+</head>
+<body>
+<form id="alipaysubmit" name="alipaysubmit" action="https://mapi.alipay.com/gateway.do?_input_charset=UTF-8"
+      method="get">
+    <input type="hidden" name="sign" value="85beed508f0e37b47de4a59755393bed"/>
+    <input type="hidden" name="body" value="11"/>
+    <input type="hidden" name="_input_charset" value="UTF-8"/>
+    <input type="hidden" name="total_fee" value="0.01"/>
+    <input type="hidden" name="subject" value="11"/>
+    <input type="hidden" name="sign_type" value="MD5"/>
+    <input type="hidden" name="service" value="create_direct_pay_by_user"/>
+    <input type="hidden" name="notify_url" value="http://www.xxx.cn/create_direct_pay_by_user_jsp_utf8/notify_url.jsp"/>
+    <input type="hidden" name="out_trade_no" value="20120607141151"/>
+    <input type="hidden" name="payment_type" value="1"/>
+    <input type="hidden" name="show_url" value="http://www.xxx.com/order/myorder.jsp"/>
+    <input type="hidden" name="return_url"
+           value="http://127.0.0.1:8080/create_direct_pay_by_user_jsp_utf8/return_url.jsp"/>
+    <input type="submit" value="确认">
+</form>
+
+</body>
+</html>
