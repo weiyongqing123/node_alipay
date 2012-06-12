@@ -7,3 +7,5 @@ node_alipay
 cd node_alipay
 npm install
 node app.js
+
+欢迎贡献代码
