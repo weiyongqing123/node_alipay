@@ -293,7 +293,7 @@ exports.alipayto = function (req, res) {
                 }
                 prestr = prestr + AlipayConfig.key; //把拼接后的字符串再与安全校验码直接连接起来
                 var crypto = require('crypto');
-                var mysign = crypto.createHash('md5').update(prestr).digest("hex");
+                var mysign = crypto.createHash('md5').update(prestr, AlipayConfig.input_charset).digest("hex");
                 //签名结果与签名方式加入请求提交参数组中
                 sPara.push(["sign", mysign]);
                 sPara.push(["sign_type", AlipayConfig.sign_type]);
@@ -308,7 +308,7 @@ exports.alipayto = function (req, res) {
             for (var i3 = 0; i3 < sPara.length; i3++) {
                 var obj = sPara[i3];
                 var name = obj[0];
-                var value = obj[1];
+                var value = encodeURIComponent(obj[1]);
                 if(i3<(sPara.length-1)){
                     path=path+name+"="+value+"&";
                 }else{
