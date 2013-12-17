@@ -1,9 +1,28 @@
 {
-    "name": "application-name"
-  , "version": "0.0.1"
-  , "private": true
-  , "dependencies": {
-      "express": "2.5.8"
-    , "ejs": ">=0.7.1"
-  }
+  "name": "alipay",
+  "version": "0.0.2",
+  "private": true,
+  "dependencies": {
+    "ejs": "~0.8.5",
+    "express": "~3.4.7"
+  },
+  "description": "node_alipay",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coderhaoxin/node_alipay.git"
+  },
+  "author": "weiyongqing",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/coderhaoxin/node_alipay/issues"
+  },
+  "homepage": "https://github.com/coderhaoxin/node_alipay",
+  "keywords": [
+    "alipay"
+  ]
 }
