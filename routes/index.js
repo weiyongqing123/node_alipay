@@ -167,13 +167,14 @@ exports.alipayto = function (req, res) {
     //必填参数//
 
     //请与贵网站订单系统中的唯一订单号匹配
-    var out_trade_no = '20120708132324';
+    var out_trade_no = req.body.orderId;
     //订单名称，显示在支付宝收银台里的“商品名称”里，显示在支付宝的交易管理的“商品名称”的列表里。
-    var subject = req.body.subject;
+    var subject = req.body.orderSubject;
     //订单描述、订单详细、订单备注，显示在支付宝收银台里的“商品描述”里
-    var body = req.body.alibody;
+    var body = req.body.orderBody;
     //订单总金额，显示在支付宝收银台里的“应付总额”里
-    var total_fee = req.body.total_fee;
+    var total_fee = req.body.orderFee;
+
 
 
     //扩展功能参数——默认支付方式//
@@ -225,20 +226,23 @@ exports.alipayto = function (req, res) {
 
     //把请求参数打包成数组
     var sParaTemp = [];
+    sParaTemp.push(["service", "create_direct_pay_by_user"]);
+    sParaTemp.push(["partner", AlipayConfig.partner]);
+    sParaTemp.push(["seller_id", AlipayConfig.partner]);//seller_id
+    sParaTemp.push(["_input_charset", AlipayConfig.input_charset]);
     sParaTemp.push(["payment_type", "1"]);
-    sParaTemp.push(["out_trade_no", out_trade_no]);
-    sParaTemp.push(["subject", subject]);
-    sParaTemp.push(["body", body]);
-    sParaTemp.push(["total_fee", total_fee]);
-//    sParaTemp.push(["show_url", show_url]);
-    sParaTemp.push(["paymethod", paymethod]);
-    sParaTemp.push(["defaultbank", defaultbank]);
+    sParaTemp.push(["notify_url", AlipayConfig.notify_url]);
+    sParaTemp.push(["return_url", AlipayConfig.return_url]);
     sParaTemp.push(["anti_phishing_key", anti_phishing_key]);
     sParaTemp.push(["exter_invoke_ip", exter_invoke_ip]);
-    sParaTemp.push(["extra_common_param", extra_common_param]);
-    sParaTemp.push(["buyer_email", buyer_email]);
+    sParaTemp.push(["out_trade_no", out_trade_no]);
+    sParaTemp.push(["subject", subject]);
+    sParaTemp.push(["total_fee", total_fee]);
+    sParaTemp.push(["body", body]);
     sParaTemp.push(["royalty_type", royalty_type]);
     sParaTemp.push(["royalty_parameters", royalty_parameters]);
+    sParaTemp.push(["extra_common_param", extra_common_param]);
+
     /**
      * 构造即时到帐接口
      * @param sParaTemp 请求参数集合
@@ -246,13 +250,6 @@ exports.alipayto = function (req, res) {
      */
     var create_direct_pay_by_user = function (sParaTemp) {
         //增加基本配置
-        sParaTemp.push(["service", "create_direct_pay_by_user"]);
-        sParaTemp.push(["partner", AlipayConfig.partner]);
-        sParaTemp.push(["return_url", AlipayConfig.return_url]);
-        sParaTemp.push(["notify_url", AlipayConfig.notify_url]);
-        sParaTemp.push(["seller_email", AlipayConfig.seller_email]);
-        sParaTemp.push(["_input_charset", AlipayConfig.input_charset]);
-
         /**
          * 构造提交表单HTML数据
          * @param sParaTemp 请求参数数组
@@ -370,6 +367,7 @@ exports.paynotify=function(req,res){
 
                 //注意：
                 //该种交易状态只在一种情况下出现——开通了高级即时到账，买家付款成功后。
+                console.log("订单号"+order_no+"支付金额:"+total_fee+" 支付成功");
             }
 
             //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
@@ -426,11 +424,12 @@ exports.payreturn=function(req,res){
 
                 //注意：
                 //该种交易状态只在一种情况下出现——开通了高级即时到账，买家付款成功后。
+                console.log("订单号"+order_no+"支付金额:"+total_fee+" 支付成功");
             }
 
             //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 
-            res.end("success");	//请不要修改或删除——
+            res.end("订单号"+order_no+"支付金额:"+total_fee+" 支付成功");	//请不要修改或删除——
 
             //////////////////////////////////////////////////////////////////////////////////////////
         } else{
